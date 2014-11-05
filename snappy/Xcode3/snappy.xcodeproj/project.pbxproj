@@ -206,7 +206,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "RenderingPlugin" */ = {
+		1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "snappy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB911B08733D790010E9CD /* Debug */,
@@ -215,7 +215,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "RenderingPlugin" */ = {
+		1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "snappy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB911F08733D790010E9CD /* Debug */,
