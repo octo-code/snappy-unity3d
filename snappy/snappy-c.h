@@ -37,6 +37,14 @@
 extern "C" {
 #endif
 
+#if UNITY_METRO
+#define EXPORT_API __declspec(dllexport) __stdcall
+#elif UNITY_WIN
+#define EXPORT_API __declspec(dllexport)
+#else
+#define EXPORT_API
+#endif
+
 #include <stddef.h>
 
 /*
@@ -68,7 +76,7 @@ typedef enum {
  *   }
  *   free(output);
  */
-snappy_status snappy_compress(const char* input,
+snappy_status EXPORT_API snappy_compress(const char* input,
                               size_t input_length,
                               char* compressed,
                               size_t* compressed_length);
@@ -100,7 +108,7 @@ snappy_status snappy_compress(const char* input,
  *   }
  *   free(output);
  */
-snappy_status snappy_uncompress(const char* compressed,
+snappy_status EXPORT_API snappy_uncompress(const char* compressed,
                                 size_t compressed_length,
                                 char* uncompressed,
                                 size_t* uncompressed_length);
@@ -109,7 +117,7 @@ snappy_status snappy_uncompress(const char* compressed,
  * Returns the maximal size of the compressed representation of
  * input data that is "source_length" bytes in length.
  */
-size_t snappy_max_compressed_length(size_t source_length);
+size_t EXPORT_API snappy_max_compressed_length(size_t source_length);
 
 /*
  * REQUIRES: "compressed[]" was produced by snappy_compress()
@@ -117,7 +125,7 @@ size_t snappy_max_compressed_length(size_t source_length);
  * *result normally. Returns SNAPPY_INVALID_INPUT on parsing error.
  * This operation takes O(1) time.
  */
-snappy_status snappy_uncompressed_length(const char* compressed,
+snappy_status EXPORT_API snappy_uncompressed_length(const char* compressed,
                                          size_t compressed_length,
                                          size_t* result);
 
@@ -128,7 +136,7 @@ snappy_status snappy_uncompressed_length(const char* compressed,
  * Takes time proportional to compressed_length, but is usually at least a
  * factor of four faster than actual decompression.
  */
-snappy_status snappy_validate_compressed_buffer(const char* compressed,
+snappy_status EXPORT_API snappy_validate_compressed_buffer(const char* compressed,
                                                 size_t compressed_length);
 
 #ifdef __cplusplus

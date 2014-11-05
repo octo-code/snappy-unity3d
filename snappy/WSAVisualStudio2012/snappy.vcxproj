@@ -156,16 +156,12 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
     <PostBuildEvent>
-      <Command>if "$(SolutionName)" == "RenderingPlugin" (
+      <Command>if "$(SolutionName)" == "snappy" (
   echo Copying plugin files to Unity project
-  mkdir "$(SolutionDir)..\..\UnityProject\Assets\Plugins"
-  mkdir "$(SolutionDir)..\..\UnityProject\Assets\Plugins\Metro"
-  mkdir "$(SolutionDir)..\..\UnityProject\Assets\Plugins\Metro\$(PlatformShortName)"
-  copy /Y "$(TargetPath)" "$(SolutionDir)..\..\UnityProject\Assets\Plugins\Metro\$(PlatformShortName)\$(TargetFileName)"
-
-  mkdir "$(SolutionDir)..\..\UnityProject\Assets\StreamingAssets"
-  copy /Y "$(TargetDir)SimpleVertexShader.cso" "$(SolutionDir)..\..\UnityProject\Assets\StreamingAssets\SimpleVertexShader.cso"
-  copy /Y "$(TargetDir)SimplePixelShader.cso" "$(SolutionDir)..\..\UnityProject\Assets\StreamingAssets\SimplePixelShader.cso"
+  mkdir "$(SolutionDir)..\..\unity\Assets\Plugins"
+  mkdir "$(SolutionDir)..\..\unity\Assets\Plugins\Metro"
+  mkdir "$(SolutionDir)..\..\unity\Assets\Plugins\Metro\$(PlatformShortName)"
+  copy /Y "$(TargetPath)" "$(SolutionDir)..\..\unity\Assets\Plugins\Metro\$(PlatformShortName)\$(TargetFileName)"
 ) ELSE (
   echo Copying plugin files to $(SolutionName) solution
 
@@ -174,8 +170,6 @@
   mkdir "$(SolutionDir)$(SolutionName)\Plugins\Metro\$(PlatformShortName)"
 
   copy /Y "$(TargetPath)" "$(SolutionDir)$(SolutionName)\Plugins\Metro\$(PlatformShortName)\$(TargetFileName)"
-  copy /Y "$(TargetDir)SimpleVertexShader.cso" "$(SolutionDir)$(SolutionName)\Data\StreamingAssets\SimpleVertexShader.cso"
-  copy /Y "$(TargetDir)SimplePixelShader.cso" "$(SolutionDir)$(SolutionName)\Data\StreamingAssets\SimplePixelShader.cso"
 )
 </Command>
     </PostBuildEvent>
@@ -224,16 +218,12 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
     <PostBuildEvent>
-      <Command>if "$(SolutionName)" == "RenderingPlugin" (
+      <Command>if "$(SolutionName)" == "snappy" (
   echo Copying plugin files to Unity project
-  mkdir "$(SolutionDir)..\..\UnityProject\Assets\Plugins"
-  mkdir "$(SolutionDir)..\..\UnityProject\Assets\Plugins\Metro"
-  mkdir "$(SolutionDir)..\..\UnityProject\Assets\Plugins\Metro\$(PlatformShortName)"
-  copy /Y "$(TargetPath)" "$(SolutionDir)..\..\UnityProject\Assets\Plugins\Metro\$(PlatformShortName)\$(TargetFileName)"
-
-  mkdir "$(SolutionDir)..\..\UnityProject\Assets\StreamingAssets"
-  copy /Y "$(TargetDir)SimpleVertexShader.cso" "$(SolutionDir)..\..\UnityProject\Assets\StreamingAssets\SimpleVertexShader.cso"
-  copy /Y "$(TargetDir)SimplePixelShader.cso" "$(SolutionDir)..\..\UnityProject\Assets\StreamingAssets\SimplePixelShader.cso"
+  mkdir "$(SolutionDir)..\..\unity\Assets\Plugins"
+  mkdir "$(SolutionDir)..\..\unity\Assets\Plugins\Metro"
+  mkdir "$(SolutionDir)..\..\unity\Assets\Plugins\Metro\$(PlatformShortName)"
+  copy /Y "$(TargetPath)" "$(SolutionDir)..\..\unity\Assets\Plugins\Metro\$(PlatformShortName)\$(TargetFileName)"
 ) ELSE (
   echo Copying plugin files to $(SolutionName) solution
 
@@ -242,8 +232,6 @@
   mkdir "$(SolutionDir)$(SolutionName)\Plugins\Metro\$(PlatformShortName)"
 
   copy /Y "$(TargetPath)" "$(SolutionDir)$(SolutionName)\Plugins\Metro\$(PlatformShortName)\$(TargetFileName)"
-  copy /Y "$(TargetDir)SimpleVertexShader.cso" "$(SolutionDir)$(SolutionName)\Data\StreamingAssets\SimpleVertexShader.cso"
-  copy /Y "$(TargetDir)SimplePixelShader.cso" "$(SolutionDir)$(SolutionName)\Data\StreamingAssets\SimplePixelShader.cso"
 )
 </Command>
     </PostBuildEvent>

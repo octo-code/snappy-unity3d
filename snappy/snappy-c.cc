@@ -31,7 +31,7 @@
 
 extern "C" {
 
-snappy_status snappy_compress(const char* input,
+snappy_status EXPORT_API snappy_compress(const char* input,
                               size_t input_length,
                               char* compressed,
                               size_t *compressed_length) {
@@ -42,7 +42,7 @@ snappy_status snappy_compress(const char* input,
   return SNAPPY_OK;
 }
 
-snappy_status snappy_uncompress(const char* compressed,
+snappy_status EXPORT_API snappy_uncompress(const char* compressed,
                                 size_t compressed_length,
                                 char* uncompressed,
                                 size_t* uncompressed_length) {
@@ -62,11 +62,11 @@ snappy_status snappy_uncompress(const char* compressed,
   return SNAPPY_OK;
 }
 
-size_t snappy_max_compressed_length(size_t source_length) {
+size_t EXPORT_API snappy_max_compressed_length(size_t source_length) {
   return snappy::MaxCompressedLength(source_length);
 }
 
-snappy_status snappy_uncompressed_length(const char *compressed,
+snappy_status EXPORT_API snappy_uncompressed_length(const char *compressed,
                                          size_t compressed_length,
                                          size_t *result) {
   if (snappy::GetUncompressedLength(compressed,
@@ -78,7 +78,7 @@ snappy_status snappy_uncompressed_length(const char *compressed,
   }
 }
 
-snappy_status snappy_validate_compressed_buffer(const char *compressed,
+snappy_status EXPORT_API snappy_validate_compressed_buffer(const char *compressed,
                                                 size_t compressed_length) {
   if (snappy::IsValidCompressedBuffer(compressed, compressed_length)) {
     return SNAPPY_OK;
