@@ -21,16 +21,16 @@ For iOS compiling of snappy, there is a Post-Build event within the unity exampl
 Platform Support
 ----------------
 
-Windows Desktop x86     -   Functional
-Android ARM             -   Functional
-Metro x86               -   Untested
-Metro ARM               -   Untested
-iOS                     -   Untested
-Blackberry              -   Not Implemented
-OSX                     -   Not Implemented
-Linux                   -   Not Implemented
-NaCL                    -   Not Implemented
-WebPlayer               -   Not Possible
+* Windows Desktop x86     -   Functional
+* Android ARM             -   Functional
+* Metro x86               -   Untested
+* Metro ARM               -   Untested
+* iOS                     -   Untested
+* Blackberry              -   Not Implemented
+* OSX                     -   Not Implemented
+* Linux                   -   Not Implemented
+* NaCL                    -   Not Implemented
+* WebPlayer               -   Not Possible
 
 Support
 ----------------
