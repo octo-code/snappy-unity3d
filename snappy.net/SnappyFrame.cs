@@ -172,12 +172,12 @@ namespace Snappy
             {
                 var count = SnappyCodec.Uncompress(Buffer, 0, BufferUsage, buffer, offset);
                 if (ComputeMasked(buffer, offset, count) != Checksum)
-                    throw new InvalidDataException();
+                    throw new ArgumentOutOfRangeException();
             }
             else if (Type == SnappyFrameType.Uncompressed)
             {
                 if (ComputeMasked(Buffer, offset, BufferUsage) != Checksum)
-                    throw new InvalidDataException();
+                    throw new ArgumentOutOfRangeException();
                 Array.Copy(Buffer, 0, buffer, offset, BufferUsage);
             }
             else
@@ -206,17 +206,17 @@ namespace Snappy
                 if (Type == SnappyFrameType.Compressed || Type == SnappyFrameType.Uncompressed)
                 {
                     if (length < 4)
-                        throw new InvalidDataException();
+                        throw new ArgumentOutOfRangeException();
                     EnsureRead(stream, WordBuffer, 0, 4);
                     Checksum = (uint)WordBuffer[0] + ((uint)WordBuffer[1] << 8) + ((uint)WordBuffer[2] << 16) + ((uint)WordBuffer[3] << 24);
                     BufferUsage = length - 4;
                     if (BufferUsage > MaxBufferUsage)
-                        throw new InvalidDataException();
+                        throw new ArgumentOutOfRangeException();
                     EnsureBuffer(BufferUsage);
                     EnsureRead(stream, Buffer, 0, BufferUsage);
                     DataLength = Type == SnappyFrameType.Uncompressed ? BufferUsage : SnappyCodec.GetUncompressedLength(Buffer, 0, BufferUsage);
                     if (DataLength > MaxFrameSize)
-                        throw new InvalidDataException();
+                        throw new ArgumentOutOfRangeException();
                 }
                 else if (Type == SnappyFrameType.Padding || (byte)Type >= (byte)SnappyFrameType.SkippableFirst && (byte)Type <= (byte)SnappyFrameType.SkippableLast)
                 {
@@ -235,10 +235,10 @@ namespace Snappy
                     EnsureBuffer(6);
                     EnsureRead(stream, Buffer, 0, 6);
                     if (!Utils.BuffersEqual(Buffer, StreamIdentifier, 6))
-                        throw new InvalidDataException();
+                        throw new ArgumentOutOfRangeException();
                 }
                 else
-                    throw new InvalidDataException();
+                    throw new ArgumentOutOfRangeException();
                 return true;
             }
             catch
@@ -283,17 +283,17 @@ namespace Snappy
                 if (Type == SnappyFrameType.Compressed || Type == SnappyFrameType.Uncompressed)
                 {
                     if (length < 4)
-                        throw new InvalidDataException();
+                        throw new ArgumentOutOfRangeException();
                     await EnsureReadAsync(stream, WordBuffer, 0, 4, cancellation);
                     Checksum = (uint)WordBuffer[0] + ((uint)WordBuffer[1] << 8) + ((uint)WordBuffer[2] << 16) + ((uint)WordBuffer[3] << 24);
                     BufferUsage = length - 4;
                     if (BufferUsage > MaxBufferUsage)
-                        throw new InvalidDataException();
+                        throw new ArgumentOutOfRangeException();
                     EnsureBuffer(BufferUsage);
                     await EnsureReadAsync(stream, Buffer, 0, BufferUsage, cancellation);
                     DataLength = Type == SnappyFrameType.Uncompressed ? BufferUsage : SnappyCodec.GetUncompressedLength(Buffer, 0, BufferUsage);
                     if (DataLength > MaxFrameSize)
-                        throw new InvalidDataException();
+                        throw new ArgumentOutOfRangeException();
                 }
                 else if (Type == SnappyFrameType.Padding || (byte)Type >= (byte)SnappyFrameType.SkippableFirst && (byte)Type <= (byte)SnappyFrameType.SkippableLast)
                 {
@@ -312,10 +312,10 @@ namespace Snappy
                     EnsureBuffer(6);
                     await EnsureReadAsync(stream, Buffer, 0, 6, cancellation);
                     if (!Utils.BuffersEqual(Buffer, StreamIdentifier, 6))
-                        throw new InvalidDataException();
+                        throw new ArgumentOutOfRangeException();
                 }
                 else
-                    throw new InvalidDataException();
+                    throw new ArgumentOutOfRangeException();
                 return true;
             }
             catch

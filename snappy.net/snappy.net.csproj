@@ -30,21 +30,19 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CRC32.cs" />
-    <Compile Include="Native32.cs" />
-    <Compile Include="Native64.cs" />
-    <Compile Include="NativeProxy.cs" />
+    <Compile Include="NativeBindings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SnappyCodec.cs" />
     <Compile Include="SnappyFrame.cs" />

@@ -384,7 +384,7 @@ namespace Snappy
                     if (!Frame.Read(Stream))
                         throw new EndOfStreamException();
                     if (Frame.Type != SnappyFrameType.StreamIdentifier)
-                        throw new InvalidDataException();
+                        throw new ArgumentOutOfRangeException();
                 }
                 InitializedStream = true;
             }
@@ -405,7 +405,7 @@ namespace Snappy
                     if (!await Frame.ReadAsync(Stream, cancellation))
                         throw new EndOfStreamException();
                     if (Frame.Type != SnappyFrameType.StreamIdentifier)
-                        throw new InvalidDataException();
+                        throw new ArgumentOutOfRangeException();
                 }
                 InitializedStream = true;
             }

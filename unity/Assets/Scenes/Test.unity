@@ -189,9 +189,7 @@ GUIText:
   m_GameObject: {fileID: 32}
   m_Enabled: 1
   serializedVersion: 3
-  m_Text: "A simple scene. The plugin will render a rotating triangle in the middle
-    of it.\r\nIt will also fill the plane texture each frame.\r\nAll done from native
-    code.\r\n<b>Press Play!</b>"
+  m_Text: 
   m_Anchor: 0
   m_Alignment: 0
   m_PixelOffset: {x: 0, y: 0}
@@ -214,6 +212,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1890377732}
+  - 114: {fileID: 1890377733}
   m_Layer: 0
   m_Name: Code
   m_TagString: Untagged
@@ -232,3 +231,15 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1890377733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1890377731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 238c0ce7ff3b0cb4e83169b7dd1f7a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Text: {fileID: 34}
