@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
+using UnityEngine;
+
 namespace Snappy
 {
     class NativeBindings
@@ -16,7 +18,9 @@ namespace Snappy
             checked
             {
                 uint refLength = (uint)outLength;
-                var status = snappy_compress(input, (uint)inLength, output, ref refLength);
+                var status = (Application.platform == RuntimePlatform.IPhonePlayer) ?
+                    Internal.snappy_compress(input, (uint)inLength, output, ref refLength) :
+                    External.snappy_compress(input, (uint)inLength, output, ref refLength);
                 outLength = (int)refLength;
                 return status;
             }
@@ -27,7 +31,9 @@ namespace Snappy
             checked
             {
                 uint refLength = (uint)outLength;
-                var status = snappy_uncompress(input, (uint)inLength, output, ref refLength);
+                var status = (Application.platform == RuntimePlatform.IPhonePlayer) ?
+                    Internal.snappy_uncompress(input, (uint)inLength, output, ref refLength) :
+                    External.snappy_uncompress(input, (uint)inLength, output, ref refLength);
                 outLength = (int)refLength;
                 return status;
             }
@@ -35,7 +41,14 @@ namespace Snappy
 
         public int GetMaxCompressedLength(int inLength)
         {
-            return checked((int)snappy_max_compressed_length((uint)inLength));
+            if (Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                return checked((int)Internal.snappy_max_compressed_length((uint)inLength));
+            }
+            else
+            {
+                return checked((int)External.snappy_max_compressed_length((uint)inLength));
+            }
         }
 
         public unsafe SnappyStatus GetUncompressedLength(byte* input, int inLength, out int outLength)
@@ -43,7 +56,9 @@ namespace Snappy
             checked
             {
                 uint unsignedLength;
-                var status = snappy_uncompressed_length(input, (uint)inLength, out unsignedLength);
+                var status = (Application.platform == RuntimePlatform.IPhonePlayer) ?
+                    Internal.snappy_uncompressed_length(input, (uint)inLength, out unsignedLength) :
+                    External.snappy_uncompressed_length(input, (uint)inLength, out unsignedLength);
                 outLength = (int)unsignedLength;
                 return status;
             }
@@ -51,22 +66,50 @@ namespace Snappy
 
         public unsafe SnappyStatus ValidateCompressedBuffer(byte* input, int inLength)
         {
-            return checked(snappy_validate_compressed_buffer(input, (uint)inLength));
+            if (Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                return checked(Internal.snappy_validate_compressed_buffer(input, (uint)inLength));
+            }
+            else
+            {
+                return checked(External.snappy_validate_compressed_buffer(input, (uint)inLength));
+            }
         }
 
-        [DllImport("snappy")]
-        private static unsafe extern SnappyStatus snappy_compress(byte* input, uint input_length, byte* output, ref uint output_length);
+        class External
+        {
+            [DllImport("snappy")]
+            public static unsafe extern SnappyStatus snappy_compress(byte* input, uint input_length, byte* output, ref uint output_length);
 
-        [DllImport("snappy")]
-        private static unsafe extern SnappyStatus snappy_uncompress(byte* input, uint input_length, byte* output, ref uint output_length);
+            [DllImport("snappy")]
+            public static unsafe extern SnappyStatus snappy_uncompress(byte* input, uint input_length, byte* output, ref uint output_length);
 
-        [DllImport("snappy")]
-        private static extern uint snappy_max_compressed_length(uint input_length);
+            [DllImport("snappy")]
+            public static extern uint snappy_max_compressed_length(uint input_length);
 
-        [DllImport("snappy")]
-        private static unsafe extern SnappyStatus snappy_uncompressed_length(byte* input, uint input_length, out uint output_length);
+            [DllImport("snappy")]
+            public static unsafe extern SnappyStatus snappy_uncompressed_length(byte* input, uint input_length, out uint output_length);
 
-        [DllImport("snappy")]
-        private static unsafe extern SnappyStatus snappy_validate_compressed_buffer(byte* input, uint input_length);
+            [DllImport("snappy")]
+            public static unsafe extern SnappyStatus snappy_validate_compressed_buffer(byte* input, uint input_length);
+        }
+
+        class Internal
+        {
+            [DllImport("__Internal")]
+            public static unsafe extern SnappyStatus snappy_compress(byte* input, uint input_length, byte* output, ref uint output_length);
+
+            [DllImport("__Internal")]
+            public static unsafe extern SnappyStatus snappy_uncompress(byte* input, uint input_length, byte* output, ref uint output_length);
+
+            [DllImport("__Internal")]
+            public static extern uint snappy_max_compressed_length(uint input_length);
+
+            [DllImport("__Internal")]
+            public static unsafe extern SnappyStatus snappy_uncompressed_length(byte* input, uint input_length, out uint output_length);
+
+            [DllImport("__Internal")]
+            public static unsafe extern SnappyStatus snappy_validate_compressed_buffer(byte* input, uint input_length);
+        }
     }
 }
