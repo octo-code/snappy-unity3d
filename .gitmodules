@@ -1,0 +1,3 @@
+[submodule "snappy/snappy"]
+	path = snappy/snappy
+	url = https://github.com/google/snappy
