@@ -23,9 +23,9 @@ Platform Support
 
 * Windows Desktop x86     -   Functional
 * Android ARM             -   Functional
+* iOS                     -   Functional
 * Metro x86               -   Untested
 * Metro ARM               -   Untested
-* iOS                     -   Untested
 * Blackberry              -   Not Implemented
 * OSX                     -   Not Implemented
 * Linux                   -   Not Implemented
