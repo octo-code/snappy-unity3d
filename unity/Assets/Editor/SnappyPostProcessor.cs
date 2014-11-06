@@ -28,8 +28,8 @@ public class MyBuildPostprocessor
         File.Copy("../snappy/snappy-internal.h",        Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-internal.h"), true);
         File.Copy("../snappy/snappy-sinksource.cc",     Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-sinksource.cc"), true);
         File.Copy("../snappy/snappy-sinksource.h",      Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-sinksource.h"), true);
-        File.Copy("../snappy/snappy-stubs-internal.cc", Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-internal.cc"), true);
-        File.Copy("../snappy/snappy-stubs-internal.h",  Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-internal.h"), true);
+        File.Copy("../snappy/snappy-stubs-internal.cc", Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-stubs-internal.cc"), true);
+        File.Copy("../snappy/snappy-stubs-internal.h",  Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-stubs-internal.h"), true);
         File.Copy("../snappy/snappy-stubs-public.h",    Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-stubs-public.h"), true);
 
 		// TODO: for now project api is not exposed, so you need to add files manually
