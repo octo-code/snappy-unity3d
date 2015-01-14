@@ -24,7 +24,7 @@ public class SnappyBuildPostprocessor
 	private static void OnPostprocessBuildIOS(string pathToBuiltProject)
 	{
 		var lProcessInfo = new ProcessStartInfo("python");
-		lProcessInfo.Arguments = string.Format("./Assets/Editor/Snappy/iOS/XcodeUpdatePostBuild.py %s iPhone",
+		lProcessInfo.Arguments = string.Format("./Assets/Editor/Snappy/iOS/XcodeUpdatePostBuild.py {0} iPhone",
 			pathToBuiltProject);
 
 		var lProcess = Process.Start(lProcessInfo);

@@ -16,7 +16,7 @@ def main(argv = sys.argv, pluginName = 'snappy-unity3d'):
         print 'Exiting: PostprocessBuildPlayer for Unity will only run for iPhone projects.'
         return 2
     projectPath = sys.argv[1]
-    print '--- Updating Unity-iPhone.xcodeproj/project.pbxproj for Tapjoy integration ---'
+    print '--- Updating Unity-iPhone.xcodeproj/project.pbxproj for snappy-unity3d integration ---'
     try:
         projectFile = projectPath + '/Unity-iPhone.xcodeproj/project.pbxproj'
         pluginPath = unityRootProject + '/Assets/Editor/Snappy/iOS/src/'
@@ -30,7 +30,7 @@ def main(argv = sys.argv, pluginName = 'snappy-unity3d'):
         files = p.getFiles(pluginPath)
         for f in files:
             ext = os.path.splitext(f['name'])[1]
-            if ext in ('.m', '.mm', '.c'):
+            if ext in ('.m', '.mm', '.c', '.cc'):
                 fileHash = p.addFileReference(f['name'], f['path'], '"<group>"', pluginName)
                 if fileHash is not None:
                     print 'adding build file: ' + f['name']
@@ -60,6 +60,8 @@ def main(argv = sys.argv, pluginName = 'snappy-unity3d'):
                     buildFileHash = p.addBuildFile(f['name'], fileHash)
                     p.addFileToBuildPhase(f['name'], buildFileHash, 'Frameworks')
                     p.addFrameworkSearchPath(pluginPath, pluginName)
+            elif ext == '.meta':
+                print 'skipping meta file: ' + f['name']
             elif ext not in '.DS_Store':
                 fileHash = p.addFileReference(f['name'], f['path'], '"<group>"', pluginName)
                 if fileHash is not None:
@@ -72,7 +74,7 @@ def main(argv = sys.argv, pluginName = 'snappy-unity3d'):
         print 'Failed with error: %s' % e
         return 1
 
-    print '--- Finished Tapjoy integration ---'
+    print '--- Finished snappy-unity3d integration ---'
 
 
 class XcodeProject(object):
@@ -124,6 +126,10 @@ class XcodeProject(object):
         ext = os.path.splitext(file)[1].lower()
         if ext == '.mm':
             return 'sourcecode.cpp.objcpp'
+        if ext == '.cpp':
+            return 'sourcecode.cpp.cpp'
+        if ext == '.cc':
+            return 'sourcecode.cpp.cpp'
         if ext == '.h':
             return 'sourcecode.c.h'
         if ext == '.m':
