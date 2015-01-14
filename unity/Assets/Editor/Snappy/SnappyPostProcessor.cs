@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
-using System.IO;
 
-public class MyBuildPostprocessor
+using System.IO;
+using System.Diagnostics;
+
+public class SnappyBuildPostprocessor
 {
 	[PostProcessBuild]
 	public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject)
@@ -20,19 +23,12 @@ public class MyBuildPostprocessor
 
 	private static void OnPostprocessBuildIOS(string pathToBuiltProject)
 	{
-        Directory.CreateDirectory(Path.Combine(pathToBuiltProject, "Libraries/snappy"));
-        File.Copy("../snappy/snappy.cc",                Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy.cc"), true);
-        File.Copy("../snappy/snappy.h",                 Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy.h"), true);
-        File.Copy("../snappy/snappy-c.cc",              Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-c.cc"), true);
-        File.Copy("../snappy/snappy-c.h",               Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-c.h"), true);
-        File.Copy("../snappy/snappy-internal.h",        Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-internal.h"), true);
-        File.Copy("../snappy/snappy-sinksource.cc",     Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-sinksource.cc"), true);
-        File.Copy("../snappy/snappy-sinksource.h",      Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-sinksource.h"), true);
-        File.Copy("../snappy/snappy-stubs-internal.cc", Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-stubs-internal.cc"), true);
-		File.Copy("../snappy/snappy-stubs-internal.h",  Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-stubs-internal.h"), true);
-        File.Copy("../snappy/snappy-stubs-public.h",    Path.Combine(pathToBuiltProject, "Libraries/snappy/snappy-stubs-public.h"), true);
+		var lProcessInfo = new ProcessStartInfo("python");
+		lProcessInfo.Arguments = string.Format("./Assets/Editor/Snappy/iOS/XcodeUpdatePostBuild.py %s iPhone",
+			pathToBuiltProject);
 
-		// TODO: for now project api is not exposed, so you need to add files manually
+		var lProcess = Process.Start(lProcessInfo);
+		lProcess.WaitForExit();
 	}
 
 	private static void OnPostprocessBuildWSA(string pathToBuiltProject)
@@ -57,7 +53,7 @@ public class MyBuildPostprocessor
 			}
 		}
 
-		if (!patched) Debug.LogError("Failed to patch file");
+		if (!patched) UnityEngine.Debug.LogError("Failed to patch file");
 	}
 
 
